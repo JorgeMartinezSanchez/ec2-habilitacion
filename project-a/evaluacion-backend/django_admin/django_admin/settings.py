@@ -1,13 +1,13 @@
 import os
 from pathlib import Path
 
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent
 
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-b9^0c@xjl#$u_4#^@jm+u)r+9am@_1ey2qal_@6xh5yfvzg6^0')
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-b9^0c@xjlt$u_4c^@jm+u_r+9am@_1ey2qal_@6xh5yfvzg6^0') # django-insecure-b9^0c@xjl#$u_4#^@jm+u)r+9am@_1ey2qal_@6xh5yfvzg6^0
 
 DEBUG = os.environ.get('DJANGO_DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
+ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', 'localhost,127.0.0.1,nginx,django').split(',')
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -56,7 +56,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': os.environ.get('POSTGRES_DB', 'conference'),
         'USER': os.environ.get('POSTGRES_USER', 'conference'),
-        'PASSWORD': os.environ.get('POSTGRES_PASSWORD', 'conference'),
+        'PASSWORD': os.environ.get('POSTGRES_PASSWORD', 'loudestmferihaveeverheard'),
         'HOST': os.environ.get('POSTGRES_HOST', 'postgres'),
         'PORT': os.environ.get('POSTGRES_PORT', '5432'),
         'OPTIONS': {'options': '-c search_path=public,content'},

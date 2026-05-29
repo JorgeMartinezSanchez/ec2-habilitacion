@@ -1,0 +1,85 @@
+services:
+  nginx:
+    image: nginx
+    ports:
+     - "80:80"
+    volumes:
+      - ./frontend:/usr/share/nginx/html
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - django_static:/app/staticfiles
+    depends_on:
+      django-admin:
+        condition: service_healthy
+      fastapi:
+        condition: service_healthy
+    networks:
+      - conn
+
+  fastapi:
+    build: ./evaluacion-backend/fastapi
+    container_name: FastAPI
+    volumes:
+      - ./evaluacion-backend/fastapi:/app
+    ports:
+      - "8001:8000"
+    env_file:
+      - /evaluacion-backend/.env
+    networks:
+      - conn
+    depends_on:
+      postgresql:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/healthz').read()"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  django-admin:
+    build: ./evaluacion-backend/django_admin
+    ports:
+      - "8000:8000"
+    container_name: django-admin
+    volumes:
+      - ./evaluacion-backend/django_admin:/app
+      - django_static:/app/staticfiles
+    env_file:
+      - /evaluacion-backend/.env
+    depends_on:
+      postgresql:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/healthz').read()"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    networks:
+      - conn
+
+  postgresql:
+    image: postgres
+    env_file:
+      - /evaluacion-backend/.env
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./evaluacion-backend/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+      - postgres_data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+    networks:
+      - conn 
+
+networks:
+  conn:
+    driver: bridge
+
+volumes:
+  django_static:
+  postgres_data:
