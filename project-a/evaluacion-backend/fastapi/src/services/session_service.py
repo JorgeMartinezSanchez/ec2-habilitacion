@@ -34,7 +34,7 @@ class SessionService:
             return None
 
         result = SessionDetailOut.model_validate(session)
-        await self._try_set_cache(cach_key, result.model_dump_json())
+        await self._try_set_cache(cache_key, result.model_dump_json())
 
         return result
 

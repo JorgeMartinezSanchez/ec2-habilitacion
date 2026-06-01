@@ -1,7 +1,7 @@
 import logging
 from fastapi import FastAPI
 from fastapi.responses import ORJSONResponse
-from src.api.v1 import sessions, tracks, health
+from src.api.v1 import sessions, tracks, health, speakers
 
 logging.basicConfig(
     level=logging.INFO,
@@ -18,3 +18,4 @@ app = FastAPI(
 app.include_router(sessions.router, prefix="/api/v1")
 app.include_router(tracks.router, prefix="/api/v1")
 app.include_router(health.router, prefix="/api/v1")
+app.include_router(speakers.router, prefix="/api/v1")

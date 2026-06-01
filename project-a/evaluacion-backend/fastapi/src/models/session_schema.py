@@ -16,7 +16,7 @@ class SessionOut(BaseModel):
     track: TrackOut
 
 class SessionDetailOut(SessionOut):
-    abstract: str
+    abstract: str | None = None
 
 class SessionPage(BaseModel):
     count: int

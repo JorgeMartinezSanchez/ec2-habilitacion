@@ -5,6 +5,8 @@ services:
     restart: unless-stopped
     env_file:
       - .env
+    ports:
+      - "5432:5432"
     volumes:
       - conference_data:/var/lib/postgresql/data
     healthcheck:
@@ -61,7 +63,9 @@ services:
 
   nginx:
     container_name: conference_nginx
-    build: ./nginx
+    build:
+      context: .
+      dockerfile: nginx/Dockerfile
     restart: unless-stopped
     ports:
       - "80:80"

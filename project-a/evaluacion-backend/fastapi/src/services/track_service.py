@@ -9,7 +9,7 @@ class TrackService:
             TrackListOut(
                 id=track_model.id,
                 name=track_model.name,
-                color=track_model.colour or "#6f1d1b",
+                color=track_model.color or "#6f1d1b",
                 description=track_model.description or "",
                 session_count=session_count or 0,
             )

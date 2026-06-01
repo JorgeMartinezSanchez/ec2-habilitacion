@@ -7,7 +7,7 @@ class SpeakerOut(BaseModel):
 
     id: UUID
     name: str
-    affiliation: int = 0
+    affiliation: str
 
 class SessionSummary(BaseModel):
     model_config = ConfigDict(from_attributes=True)
