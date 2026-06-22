@@ -6,7 +6,8 @@ class Speaker(Base):
     affiliation = models.CharField(max_length=200, blank=True)
     bio = models.TextField(blank=True)
 
-    class Meta:
+    class Meta(Base.Meta):
+        managed = False
         db_table = '"content"."speaker"'
         ordering = ["name"]
 

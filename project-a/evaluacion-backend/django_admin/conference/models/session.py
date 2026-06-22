@@ -19,7 +19,8 @@ class Session(Base):
         blank=True,
     )
 
-    class Meta:
+    class Meta(Base.Meta):
+        managed = False
         db_table = '"content"."session"'
         ordering = ["starts_at"]
 

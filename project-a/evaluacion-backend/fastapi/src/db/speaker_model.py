@@ -19,6 +19,7 @@ class SpeakerModel(Base):
     id: Mapped[uuid.UUID] = mapped_column(primary_key=True)
     name: Mapped[str] = mapped_column()
     affiliation: Mapped[str | None] = mapped_column()
+    bio: Mapped[str | None] = mapped_column()
     
     sessions: Mapped[list["SessionModel"]] = relationship(
         secondary=_speaker_session_assoc,

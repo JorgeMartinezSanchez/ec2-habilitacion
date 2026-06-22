@@ -10,7 +10,8 @@ class Track(Base):
     color = models.CharField(max_length=7, blank=True, default="#6f1d1b")
     description = models.TextField(blank=True)
 
-    class Meta:
+    class Meta(Base.Meta):
+        managed = False
         db_table = '"content"."track"'
         ordering = ["name"]
 

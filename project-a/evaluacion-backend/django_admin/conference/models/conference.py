@@ -8,7 +8,8 @@ class Conference(Base):
     ends_at = models.DateTimeField()
     timezone = models.CharField(max_length=50, default="UTC")
 
-    class Meta:
+    class Meta(Base.Meta):
+        managed = False
         db_table = '"content"."conference"'
         ordering = ["-starts_at"]
 

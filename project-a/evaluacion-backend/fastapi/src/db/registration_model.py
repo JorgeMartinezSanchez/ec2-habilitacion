@@ -9,4 +9,5 @@ class RegistrationModel(Base):
 
     id: Mapped[uuid.UUID] = mapped_column(primary_key=True)
     session_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("content.session.id"))
+    user_email: Mapped[str] = mapped_column()
     status: Mapped[str] = mapped_column()

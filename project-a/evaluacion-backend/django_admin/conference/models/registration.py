@@ -16,7 +16,8 @@ class Registration(Base):
         max_length=20, choices=Status.choices, default=Status.CONFIRMED
     )
 
-    class Meta:
+    class Meta(Base.Meta):
+        managed = False
         db_table = '"content"."registration"'
         ordering = ["-created"]
         indexes = [

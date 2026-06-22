@@ -11,7 +11,8 @@ class SessionSpeaker(Base):
         Speaker, on_delete=models.CASCADE, related_name="session_speakers"
     )
 
-    class Meta:
+    class Meta(Base.Meta):
+        managed = False
         db_table = '"content"."session_speaker"'
         unique_together = [("session", "speaker")]
 
