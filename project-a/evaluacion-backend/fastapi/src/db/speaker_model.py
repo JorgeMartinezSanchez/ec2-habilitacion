@@ -1,6 +1,7 @@
 import uuid
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from src.db.base import Base
+from src.db.session_model import SessionModel
 
 class SpeakerModel(Base):
     __tablename__ = "speaker"
