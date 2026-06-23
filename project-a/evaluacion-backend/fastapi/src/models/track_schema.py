@@ -6,8 +6,8 @@ class TrackOut(BaseModel):
 
     id: UUID
     name: str
-    color: str = "#6f1d1b"
-    description: str = ""
+    color: str | None = "#6f1d1b"
+    description: str | None = ""
 
 class TrackListOut(TrackOut):
     session_count: int = 0
