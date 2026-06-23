@@ -5,7 +5,6 @@ from sqlalchemy import ForeignKey
 from sqlalchemy.dialects.postgresql import TIMESTAMP
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from src.db.base import Base
-from src.db.session_speaker import session_speaker_table
 
 if TYPE_CHECKING:
     from src.db.speaker_model import SpeakerModel
@@ -24,7 +23,8 @@ class SessionModel(Base):
     capacity: Mapped[int | None] = mapped_column()
     
     track = relationship("TrackModel", lazy="noload")
-    speakers: Mapped[list["SpeakerModel"]] = relationship(
-        secondary=session_speaker_table,
-        viewonly=True,
-    )
+    # ⚠️ TEMPORALMENTE COMENTADO - La relación speakers se restaurará después
+    # speakers: Mapped[list["SpeakerModel"]] = relationship(
+    #     secondary="content.session_speaker",
+    #     viewonly=True,
+    # )
