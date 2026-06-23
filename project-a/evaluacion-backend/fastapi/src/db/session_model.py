@@ -5,7 +5,6 @@ from sqlalchemy.dialects.postgresql import TIMESTAMP
 from sqlalchemy.orm import relationship
 from src.db.base import Base
 
-# Tabla de asociación para session_speaker
 session_speaker_table = Table(
     "session_speaker",
     Base.metadata,
