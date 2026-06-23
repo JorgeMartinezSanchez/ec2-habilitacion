@@ -1,10 +1,11 @@
 import uuid
 from datetime import datetime
-from sqlalchemy import Column, String, ForeignKey, UUID, DateTime, Integer, Table
+from sqlalchemy import Table, Column, String, ForeignKey, UUID, DateTime, Integer, MetaData
 from sqlalchemy.dialects.postgresql import TIMESTAMP
 from sqlalchemy.orm import relationship
 from src.db.base import Base
 
+# Tabla de asociación para session_speaker
 session_speaker_table = Table(
     "session_speaker",
     Base.metadata,
@@ -15,16 +16,19 @@ session_speaker_table = Table(
 )
 
 class SessionModel(Base):
-    __tablename__ = "session"
-    __table_args__ = {"schema": "content", "extend_existing": True}
-    
-    id = Column(UUID, primary_key=True, default=uuid.uuid4)
-    track_id = Column(UUID, ForeignKey("content.track.id", ondelete="CASCADE"), nullable=False)
-    title = Column(String(300), nullable=False)
-    abstract = Column(String, nullable=True)
-    starts_at = Column(TIMESTAMP(timezone=True), nullable=False)
-    ends_at = Column(TIMESTAMP(timezone=True), nullable=False)
-    capacity = Column(Integer, nullable=True)
+    __table__ = Table(
+        "session",
+        Base.metadata,
+        Column("id", UUID, primary_key=True, default=uuid.uuid4),
+        Column("track_id", UUID, ForeignKey("content.track.id", ondelete="CASCADE"), nullable=False),
+        Column("title", String(300), nullable=False),
+        Column("abstract", String, nullable=True),
+        Column("starts_at", TIMESTAMP(timezone=True), nullable=False),
+        Column("ends_at", TIMESTAMP(timezone=True), nullable=False),
+        Column("capacity", Integer, nullable=True),
+        schema="content",
+        extend_existing=True
+    )
     
     track = relationship("TrackModel", back_populates="sessions", lazy="noload")
     speakers = relationship("SpeakerModel", secondary=session_speaker_table, viewonly=True)
