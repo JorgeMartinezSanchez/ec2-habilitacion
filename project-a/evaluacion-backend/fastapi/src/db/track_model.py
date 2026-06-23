@@ -12,3 +12,9 @@ class TrackModel(Base):
     name: Mapped[str] = mapped_column()
     color: Mapped[str | None] = mapped_column()
     description: Mapped[str | None] = mapped_column()
+
+    # Temporalmente comentamos la relación sessions
+    # sessions: Mapped[list["SessionModel"]] = relationship(
+    #     secondary="content.session_speaker",
+    #     viewonly=True,
+    # )

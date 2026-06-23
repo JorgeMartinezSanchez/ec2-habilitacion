@@ -23,8 +23,8 @@ class SessionModel(Base):
     ends_at: Mapped[datetime] = mapped_column(TIMESTAMP(timezone=True))
     capacity: Mapped[int | None] = mapped_column()
     
-    track = relationship("TrackModel", lazy="noload")
-    speakers: Mapped[list["SpeakerModel"]] = relationship(
-        secondary=session_speaker_table,
-        viewonly=True,
-    )
+    #track = relationship("TrackModel", lazy="noload")
+    #speakers: Mapped[list["SpeakerModel"]] = relationship(
+    #    secondary=session_speaker_table,
+    #    viewonly=True,
+    #)

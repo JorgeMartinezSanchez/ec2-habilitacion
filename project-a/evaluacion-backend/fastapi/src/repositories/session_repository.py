@@ -110,7 +110,6 @@ class SessionRepository:
         return None
 
     async def search_sessions(self, search_query: str) -> list[SessionModel]:
-        # Similar al método get_sessions pero sin paginación
         search_pattern = f"%{search_query}%"
         
         confirmed_count_subquery = (
@@ -134,7 +133,7 @@ class SessionRepository:
                 SessionModel.id == confirmed_count_subquery.c.session_id
             )
             .where(SessionModel.title.ilike(search_pattern) | SessionModel.abstract.ilike(search_pattern))
-            .options(selectinload(SessionModel.track), selectinload(SessionModel.speakers))
+            .options(selectinload(SessionModel.track))
             .order_by(SessionModel.starts_at)
             .limit(50)
         )

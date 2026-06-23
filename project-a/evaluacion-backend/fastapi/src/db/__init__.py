@@ -12,6 +12,5 @@ __all__ = [
     "TrackModel",
     "SessionModel",
     "SpeakerModel",
-    "RegistrationModel",
-    "session_speaker_table"
+    "RegistrationModel"
 ]
