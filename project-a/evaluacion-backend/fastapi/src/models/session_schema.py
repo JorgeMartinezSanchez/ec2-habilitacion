@@ -12,6 +12,7 @@ class SessionOut(BaseModel):
     starts_at: datetime
     ends_at: datetime
     capacity: int | None = None
+    registered: int = 0
     speakers: list[SpeakerOut] = []
     track: TrackOut
 

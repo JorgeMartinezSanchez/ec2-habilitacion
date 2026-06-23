@@ -8,6 +8,6 @@ class RegistrationModel(Base):
     __table_args__ = {"schema": "content"}
 
     id: Mapped[uuid.UUID] = mapped_column(primary_key=True)
-    session_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("content.session.id"))
+    session_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("content.session.id", name="registration_session_id_fkey"))
     user_email: Mapped[str] = mapped_column()
     status: Mapped[str] = mapped_column()

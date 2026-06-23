@@ -6,7 +6,7 @@ from src.db.base import Base
 
 class ConferenceModel(Base):
     __tablename__ = "conference"
-    __table_args__ = {"schema": "content"}
+    __table_args__ = {"schema": "content", "autoload_with": None}
 
     id: Mapped[uuid.UUID] = mapped_column(primary_key=True)
     name: Mapped[str] = mapped_column()

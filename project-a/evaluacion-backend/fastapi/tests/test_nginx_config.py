@@ -8,7 +8,7 @@ import re
 
 NGINX_CONF = os.path.join(
     os.path.dirname(__file__),
-    "..", "..", "nginx", "nginx.conf",
+    "..", "nginx", "nginx.conf",
 )
 
 

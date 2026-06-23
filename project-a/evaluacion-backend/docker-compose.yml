@@ -50,6 +50,8 @@ services:
     build:
       context: .
       dockerfile: fastapi/Dockerfile
+    volumes:
+      - ./nginx/nginx.conf:/app/nginx/nginx.conf:ro
     restart: unless-stopped
     env_file: .env
     ports:

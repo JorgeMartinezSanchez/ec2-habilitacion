@@ -10,7 +10,7 @@ class SessionModel(Base):
     __table_args__ = {"schema": "content"}
 
     id: Mapped[uuid.UUID] = mapped_column(primary_key=True)
-    track_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("content.track.id"))
+    track_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("content.track.id", name="session_track_id_fkey"))
     title: Mapped[str] = mapped_column()
     abstract: Mapped[str | None] = mapped_column()
     starts_at: Mapped[datetime] = mapped_column(TIMESTAMP(timezone=True))
