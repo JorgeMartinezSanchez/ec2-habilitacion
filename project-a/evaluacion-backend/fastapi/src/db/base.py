@@ -1,9 +1,7 @@
 from sqlalchemy.orm import DeclarativeBase
+from sqlalchemy import MetaData
+
+metadata = MetaData(schema="content")
 
 class Base(DeclarativeBase):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-    
-    @property
-    def _table(self):
-        return self.__table__
+    metadata = metadata
