@@ -2,7 +2,6 @@ from sqlalchemy import Table, Column, ForeignKey
 from sqlalchemy.dialects.postgresql import UUID
 from src.db.base import Base
 
-# Tabla de asociación session_speaker
 session_speaker_table = Table(
     "session_speaker",
     Base.metadata,
