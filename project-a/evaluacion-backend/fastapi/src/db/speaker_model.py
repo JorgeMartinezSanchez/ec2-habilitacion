@@ -3,14 +3,7 @@ from sqlalchemy import Column, ForeignKey, Table
 from sqlalchemy.dialects.postgresql import UUID as PG_UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from src.db.base import Base
-
-_speaker_session_assoc = Table(
-    "session_speaker",
-    Base.metadata,
-    Column("session_id", PG_UUID, ForeignKey("content.session.id", name="session_speaker_session_id_fkey")),
-    Column("speaker_id", PG_UUID, ForeignKey("content.speaker.id", name="session_speaker_speaker_id_fkey")),
-    schema="content",
-)
+from src.db.session_model import session_speaker_table
 
 class SpeakerModel(Base):
     __tablename__ = "speaker"
@@ -22,6 +15,6 @@ class SpeakerModel(Base):
     bio: Mapped[str | None] = mapped_column()
     
     sessions: Mapped[list["SessionModel"]] = relationship(
-        secondary=_speaker_session_assoc,
+        secondary=session_speaker_table,
         viewonly=True,
     )
