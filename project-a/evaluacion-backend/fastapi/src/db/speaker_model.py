@@ -7,8 +7,8 @@ from src.db.base import Base
 _speaker_session_assoc = Table(
     "session_speaker",
     Base.metadata,
-    Column("session_id", PG_UUID, ForeignKey("content.session.id")),
-    Column("speaker_id", PG_UUID, ForeignKey("content.speaker.id")),
+    Column("session_id", PG_UUID, ForeignKey("content.session.id", name="session_speaker_session_id_fkey")),
+    Column("speaker_id", PG_UUID, ForeignKey("content.speaker.id", name="session_speaker_speaker_id_fkey")),
     schema="content",
 )
 
