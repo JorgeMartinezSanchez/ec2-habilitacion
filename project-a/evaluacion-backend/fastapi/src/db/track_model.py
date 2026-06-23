@@ -1,7 +1,11 @@
 import uuid
+from typing import TYPE_CHECKING
 from sqlalchemy import ForeignKey
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 from src.db.base import Base
+
+if TYPE_CHECKING:
+    from src.db.session_model import SessionModel
 
 class TrackModel(Base):
     __tablename__ = "track"
@@ -13,8 +17,7 @@ class TrackModel(Base):
     color: Mapped[str | None] = mapped_column()
     description: Mapped[str | None] = mapped_column()
 
-    # Temporalmente comentamos la relación sessions
-    # sessions: Mapped[list["SessionModel"]] = relationship(
-    #     secondary="content.session_speaker",
-    #     viewonly=True,
-    # )
+    sessions: Mapped[list["SessionModel"]] = relationship(
+        secondary="content.session_speaker",
+        viewonly=True,
+    )
