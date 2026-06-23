@@ -7,7 +7,7 @@ class TrackModel(Base):
     __tablename__ = "track"
     __table_args__ = {"schema": "content"}
 
-    id: Mapped[uuid.UUID] = mapped_column(primary_key=True)
+    id: Mapped[uuid.UUID] = mapped_column(primary_key=True, default=uuid.uuid4)
     conference_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("content.conference.id"))
     name: Mapped[str] = mapped_column()
     color: Mapped[str | None] = mapped_column()
