@@ -304,7 +304,9 @@ async def test_speakers_list_endpoint_responds(db_session):
         "INSERT INTO content.conference (id, name, slug, starts_at, ends_at, timezone) "
         "VALUES (:id, 'C', 'c', NOW(), NOW(), 'UTC')"
     ), {"id": conf_id})
-    db_session.add(SpeakerModel(id=uuid4(), name="S1", affiliation="ACME"))
+    
+    speaker_id = uuid4()
+    db_session.add(SpeakerModel(id=speaker_id, name="S1", affiliation="ACME"))
     await db_session.flush()
 
     async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as ac:
@@ -313,7 +315,9 @@ async def test_speakers_list_endpoint_responds(db_session):
     body = response.json()
     assert isinstance(body, list)
     assert len(body) >= 1
-    assert body[0]["affiliation"] == "ACME"
+
+    found = any(s["id"] == str(speaker_id) for s in body)
+    assert found, f"Speaker with ID {speaker_id} not found in response"
 
 
 # ---------------------------------------------------------------------------
