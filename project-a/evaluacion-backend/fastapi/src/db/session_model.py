@@ -28,6 +28,6 @@ class SessionModel(Base):
     
     track = relationship("TrackModel", lazy="noload")
     speakers: Mapped[list["SpeakerModel"]] = relationship(
-        secondary="content.session_speaker",
+        secondary=session_speaker_table,
         viewonly=True,
     )
