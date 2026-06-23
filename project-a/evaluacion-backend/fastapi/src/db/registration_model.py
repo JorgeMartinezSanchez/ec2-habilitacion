@@ -1,13 +1,12 @@
 import uuid
-from sqlalchemy import ForeignKey
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy import Column, String, ForeignKey, UUID
 from src.db.base import Base
 
 class RegistrationModel(Base):
     __tablename__ = "registration"
-    __table_args__ = {"schema": "content"}
-
-    id: Mapped[uuid.UUID] = mapped_column(primary_key=True)
-    session_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("content.session.id", name="registration_session_id_fkey"))
-    user_email: Mapped[str] = mapped_column()
-    status: Mapped[str] = mapped_column()
+    __table_args__ = {"schema": "content", "extend_existing": True}
+    
+    id = Column(UUID, primary_key=True, default=uuid.uuid4)
+    session_id = Column(UUID, ForeignKey("content.session.id", ondelete="CASCADE"), nullable=False)
+    user_email = Column(String(254), nullable=False)
+    status = Column(String(20), nullable=False, default="confirmed")
