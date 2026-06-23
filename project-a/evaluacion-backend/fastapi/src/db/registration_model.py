@@ -4,7 +4,7 @@ from src.db.base import Base
 
 class RegistrationModel(Base):
     __tablename__ = "registration"
-    __table_args__ = {"schema": "content", "extend_existing": True}
+    __table_args__ = {"schema": "content"}
     
     id = Column(UUID, primary_key=True, default=uuid.uuid4)
     session_id = Column(UUID, ForeignKey("content.session.id", ondelete="CASCADE"), nullable=False)

@@ -4,6 +4,7 @@ from sqlalchemy import Table, Column, String, ForeignKey, UUID, DateTime, Intege
 from sqlalchemy.dialects.postgresql import TIMESTAMP
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from src.db.base import Base
+from src.db.speaker_model import session_speaker_table
 
 session_speaker_table = Table(
     "session_speaker",
