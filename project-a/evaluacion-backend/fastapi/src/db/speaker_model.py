@@ -2,6 +2,7 @@ import uuid
 from typing import TYPE_CHECKING
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from src.db.base import Base
+from src.db.session_speaker import session_speaker_table
 
 if TYPE_CHECKING:
     from src.db.session_model import SessionModel
@@ -15,8 +16,7 @@ class SpeakerModel(Base):
     affiliation: Mapped[str | None] = mapped_column()
     bio: Mapped[str | None] = mapped_column()
 
-    # ⚠️ TEMPORALMENTE COMENTADO - La relación sessions se restaurará después
-    # sessions: Mapped[list["SessionModel"]] = relationship(
-    #     secondary="content.session_speaker",
-    #     viewonly=True,
-    # )
+    sessions: Mapped[list["SessionModel"]] = relationship(
+        secondary=session_speaker_table,
+        viewonly=True,
+    )

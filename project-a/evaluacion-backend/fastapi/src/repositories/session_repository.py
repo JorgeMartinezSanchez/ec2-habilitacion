@@ -42,7 +42,7 @@ class SessionRepository:
                 confirmed_count_subquery,
                 SessionModel.id == confirmed_count_subquery.c.session_id
             )
-            .options(selectinload(SessionModel.track))
+            .options(selectinload(SessionModel.track), selectinload(SessionModel.speakers))
         )
         
         # Aplicar los filtros
@@ -97,7 +97,7 @@ class SessionRepository:
                 SessionModel.id == confirmed_count_subquery.c.session_id
             )
             .where(SessionModel.id == session_id)
-            .options(selectinload(SessionModel.track))
+            .options(selectinload(SessionModel.track), selectinload(SessionModel.speakers))
         )
 
         result = (await self.database_session.execute(query)).first()
@@ -133,7 +133,7 @@ class SessionRepository:
                 SessionModel.id == confirmed_count_subquery.c.session_id
             )
             .where(SessionModel.title.ilike(search_pattern) | SessionModel.abstract.ilike(search_pattern))
-            .options(selectinload(SessionModel.track))
+            .options(selectinload(SessionModel.track), selectinload(SessionModel.speakers))
             .order_by(SessionModel.starts_at)
             .limit(50)
         )
