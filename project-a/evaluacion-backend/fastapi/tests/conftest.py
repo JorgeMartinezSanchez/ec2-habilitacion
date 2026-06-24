@@ -16,18 +16,21 @@ async def engine():
 
 @pytest.fixture
 async def db_session(engine):
-    async with engine.connect() as connection:
-        async with connection.begin() as transaction:
-            session = AsyncSession(bind=connection, expire_on_commit=False)
-            yield session
-            await session.close()
-            await transaction.rollback()
+    connection = await engine.connect()
+    transaction = await connection.begin()
+    session = AsyncSession(bind=connection, expire_on_commit=False)
+    
+    yield session
+    
+    await session.close()
+    await transaction.rollback()
+    await connection.close()
 
 @pytest.fixture(autouse=True)
 def override_db(db_session):
-    app.dependency_overrides.clear()
     async def _override():
         yield db_session
+
     app.dependency_overrides[get_db_session] = _override
     yield
     app.dependency_overrides.clear()

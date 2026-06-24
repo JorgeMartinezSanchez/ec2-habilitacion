@@ -142,6 +142,9 @@ async def test_capacity_registration_availability(db_session):
         ends_at=datetime(2026, 7, 1, 10, 0, tzinfo=timezone.utc),
         capacity=10
     ))
+
+    await db_session.flush()
+
     db_session.add(RegistrationModel(
         id=uuid4(),
         session_id=sess_id,
@@ -192,6 +195,9 @@ async def test_capacity_registration_zero_when_no_confirmed(db_session):
         ends_at=datetime(2026, 7, 1, 10, 0, tzinfo=timezone.utc),
         capacity=50,
     ))
+
+    await db_session.flush()
+
     db_session.add(RegistrationModel(id=uuid4(), session_id=sess_id, user_email="email1@gmail.com", status="waitlist"))
     db_session.add(RegistrationModel(id=uuid4(), session_id=sess_id, user_email="email1@gmail.com", status="cancelled"))
     await db_session.flush()
@@ -224,6 +230,9 @@ async def test_capacity_registration_in_list_endpoint(db_session):
         ends_at=datetime(2026, 7, 1, 10, 0, tzinfo=timezone.utc),
         capacity=20,
     ))
+
+    await db_session.flush()
+
     for _ in range(5):
         db_session.add(RegistrationModel(id=uuid4(), session_id=sess_id, user_email="email1@gmail.com", status="confirmed"))
     await db_session.flush()
@@ -266,6 +275,9 @@ async def test_capacity_concurrent_reads_consistent(db_session):
         ends_at=datetime(2026, 7, 1, 10, 0, tzinfo=timezone.utc),
         capacity=200,
     ))
+
+    await db_session.flush()
+
     for _ in range(42):
         db_session.add(RegistrationModel(id=uuid4(), session_id=sess_id, user_email=f"email{_}@gmail.com", status="confirmed"))
     for _ in range(3):

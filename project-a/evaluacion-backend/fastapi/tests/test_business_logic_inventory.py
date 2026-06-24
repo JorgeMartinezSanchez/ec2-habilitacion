@@ -42,6 +42,7 @@ async def _seed_session(db_session, *, confirmed: int, other_statuses: list[str]
         ends_at=datetime(2026, 7, 1, 10, 0, tzinfo=timezone.utc),
         capacity=200,
     ))
+    await db_session.flush()
     for _ in range(confirmed):
         db_session.add(RegistrationModel(id=uuid4(), session_id=sess_id, user_email="email1@gmail.com", status="confirmed"))
     for s in other_statuses:

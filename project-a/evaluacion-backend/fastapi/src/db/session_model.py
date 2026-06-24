@@ -9,7 +9,7 @@ from src.db.session_speaker import session_speaker_table
 
 if TYPE_CHECKING:
     from src.db.speaker_model import SpeakerModel
-    from src.db.track_model import TrackModel
+    from src.db.registration_model import RegistrationModel
 
 class SessionModel(Base):
     __tablename__ = "session"
@@ -27,4 +27,10 @@ class SessionModel(Base):
     speakers: Mapped[list["SpeakerModel"]] = relationship(
         secondary=session_speaker_table,
         viewonly=True,
+    )
+
+    registrations: Mapped[list["RegistrationModel"]] = relationship(
+        "RegistrationModel",
+        back_populates="session",
+        cascade="all, delete-orphan"
     )

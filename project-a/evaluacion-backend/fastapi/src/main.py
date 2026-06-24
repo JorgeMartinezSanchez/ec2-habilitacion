@@ -3,6 +3,7 @@ from fastapi import FastAPI
 from fastapi.responses import ORJSONResponse
 from src.api.v1 import sessions, tracks, health, speakers
 from src.db import Base, ConferenceModel, TrackModel, SessionModel, SpeakerModel, RegistrationModel
+from src.db.session_speaker import session_speaker_table
 
 logging.basicConfig(
     level=logging.INFO,

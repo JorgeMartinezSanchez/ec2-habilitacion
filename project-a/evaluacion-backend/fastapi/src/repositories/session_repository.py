@@ -148,8 +148,7 @@ class SessionRepository:
         return sessions_with_registered
 
     def _build_filtered_query(self, filters: SessionFilters):
-        # Este método ya no se usa directamente para la consulta final
-        # pero lo mantenemos por compatibilidad
+
         query = select(SessionModel)
 
         if filters.search_query:
